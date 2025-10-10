@@ -11,7 +11,7 @@ load_dotenv() # Carga variables de .env si existe (para desarrollo local)
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY') 
-CORS(app, supports_credentials=True, origins=[os.environ.get('FRONTEND_URL')]) # Mayor seguridad
+CORS(app, supports_credentials=True, origins=["https://intramusic.netlify.app"])
 
 client_id = os.environ.get('SPOTIPY_CLIENT_ID')
 client_secret = os.environ.get('SPOTIPY_CLIENT_SECRET')
