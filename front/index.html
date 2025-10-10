@@ -67,7 +67,7 @@
                 <section 
                     id="seccion-artistas"
                     class="py-16 md:py-24 relative"
-                    style="background-image: url('static/fondo-seccion-artistas.jpg'); background-size: cover; background-position: center;">
+                    style="background-image: url('assets/static/fondo-seccion-artistas.jpg'); background-size: cover; background-position: center;">
                     <div class="absolute inset-0 bg-cyan-200/20"></div>
                     <div class="relative z-10 px-6 mx-auto max-w-5xl">
                         <h2 class="text-center font-heading text-4xl md:text-5xl font-bold mb-12 text-blue-900">Top 3 Artistas</h2>
@@ -129,7 +129,7 @@
         const contenedorLogin = document.getElementById('contenedor-login');
         const contenidoPrincipal = document.getElementById('contenido-principal');
         async function fetchConCredenciales(url) {
-            const respuesta = await fetch(url, { credentials: 'include' });
+            const respuesta = await fetch(url, { mode: 'no-cors', credentials: 'include' });
             if (respuesta.status === 401) {
                 mostrarLogin();
                 throw new Error('Autorización necesaria');
