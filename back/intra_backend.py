@@ -87,5 +87,19 @@ def get_recently_played():
             'artist': track['artists'][0]['name']
         })
     return jsonify(played_data) 
+
+@app.route('/debug-config')
+def debug_config():
+    config_data = {
+        "SECRET_KEY_EXISTS": 'SECRET_KEY' in os.environ and bool(os.environ.get('SECRET_KEY')),
+        "SPOTIPY_CLIENT_ID_EXISTS": 'SPOTIPY_CLIENT_ID' in os.environ,
+        "SPOTIPY_CLIENT_SECRET_EXISTS": 'SPOTIPY_CLIENT_SECRET' in os.environ,
+        "SPOTIPY_REDIRECT_URI_VALUE": os.environ.get('SPOTIPY_REDIRECT_URI'),
+        "FRONTEND_URL_VALUE": os.environ.get('FRONTEND_URL'),
+        "FLASK_CONFIG_SESSION_COOKIE_SAMESITE": app.config.get('SESSION_COOKIE_SAMESITE'),
+        "FLASK_CONFIG_SESSION_COOKIE_SECURE": app.config.get('SESSION_COOKIE_SECURE')
+    }
+    return jsonify(config_data)
+
 if __name__ == "__main__":
     app.run(debug=True, port=5000)
