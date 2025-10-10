@@ -10,7 +10,11 @@ from dotenv import load_dotenv # Opcional, para desarrollo local
 load_dotenv() # Carga variables de .env si existe (para desarrollo local)
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY') 
+app = Flask(__name__)
+app.config['SESSION_COOKIE_SAMESITE'] = 'None'
+app.config['SESSION_COOKIE_SECURE'] = True
+app.config['SESSION_COOKIE_HTTPONLY'] = True
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
 CORS(app, supports_credentials=True, origins=["https://intramusic.netlify.app"])
 
 client_id = os.environ.get('SPOTIPY_CLIENT_ID')
