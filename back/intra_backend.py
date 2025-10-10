@@ -30,6 +30,11 @@ sp_oauth = SpotifyOAuth(
 )
 sp = spotipy.Spotify(auth_manager=sp_oauth)
 
+@app.route('/')
+def login():
+    auth_url = sp_oauth.get_authorize_url()
+    return redirect(auth_url)
+
 @app.route('/callback')
 def callback():
     sp_oauth.get_access_token(request.args['code'])
