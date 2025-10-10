@@ -151,53 +151,85 @@
         }
 
         async function cargarTopArtistas() {
-            try {
-                const artistas = await fetchConCredenciales(`${URL_BASE_API}/api/top-artists`);
-                const contenedor = document.getElementById('contenedor-top-artistas');
-                contenedor.innerHTML = ''; 
-                artistas.forEach(artista => {
-                    const tarjetaArtistaHTML = `
-                        <div class="flex flex-col items-center">
-                            <div class="relative w-52 h-52">
-                                <img src="${artista.imageUrl}" alt="${artista.name}" class="w-full h-full object-cover ${artista.shape} shadow-lg">
-                            </div>
-                            <h3 class="font-bold text-2xl mt-6 mb-2 text-blue-900">${artista.name}</h3>
-                            <p class="text-sm text-blue-900 max-w-xs">${artista.description}</p>
-                        </div>
-                    `;
-                    contenedor.innerHTML += tarjetaArtistaHTML;
-                });
-            } catch (error) {
-                console.error('No se pudo cargar el top de artistas:', error.message);
-                if (error.message !== 'Autorización necesaria') {
-                    const contenedor = document.getElementById('contenedor-top-artistas');
-                    contenedor.innerHTML = `<p class="text-red-400 col-span-3">No se encontró información de artistas.</p>`;
-                }
-            }
-        }
+    try {
+        console.log("1. Intentando cargar artistas...");
+        const artistas = await fetchConCredenciales(`${URL_BASE_API}/api/top-artists`);
+        console.log("2. Artistas recibidos del backend:", artistas); // Para ver si los datos llegan bien
 
-        async function cargarTopCanciones() {
-             try {
-                const canciones = await fetchConCredenciales(`${URL_BASE_API}/api/top-tracks`);
-                const contenedor = document.getElementById('contenedor-top-canciones');
-                contenedor.innerHTML = '';
-                canciones.forEach(cancion => {
-                    const cancionHTML = `
-                        <div class="border-b border-white/20 py-3">
-                            <p class="font-semibold">${cancion.name}</p>
-                            <p class="text-sm text-gray-400">${cancion.artist}</p>
-                        </div>
-                    `;
-                    contenedor.innerHTML += cancionHTML;
-                });
-            } catch (error) {
-                console.error('No se encontraron las canciones:', error.message);
-                 if (error.message !== 'Autorización necesaria') {
-                    const contenedor = document.getElementById('contenedor-top-canciones');
-                    contenedor.innerHTML = `<p class="text-red-400 col-span-2 text-center">No se pudo cargar la información.</p>`;
-                }
-            }
-        }
+        const contenedor = document.getElementById('contenedor-top-artistas');
+        console.log("3. Elemento contenedor de artistas:", contenedor); // Para ver si encuentra el div
+
+        contenedor.innerHTML = ''; 
+        artistas.forEach(artista => {
+            const tarjetaArtistaHTML = `
+                <div class="flex flex-col items-center">
+                    <div class="relative w-52 h-52">
+                        <img src="${artista.imageUrl}" alt="${artista.name}" class="w-full h-full object-cover ${artista.shape} shadow-lg">
+                    </div>
+                    <h3 class="font-bold text-2xl mt-6 mb-2 text-blue-900">${artista.name}</h3>
+                    <p class="text-sm text-blue-900 max-w-xs">${artista.description}</p>
+                </div>
+            `;
+            contenedor.innerHTML += tarjetaArtistaHTML;
+        });
+        console.log("4. ¡Artistas dibujados en la página!");
+
+    } catch (error) {
+        console.error('El bloque TRY-CATCH falló. Este es el error COMPLETO:');
+    console.error(error); // Esta línea nos mostrará el error real.
+
+    // Código defensivo para mostrar el mensaje de error en la página
+    const contenedorId = this === cargarTopArtistas ? 'contenedor-top-artistas' : 'contenedor-top-canciones';
+    const contenedor = document.getElementById(contenedorId);
+    if (contenedor) {
+        contenedor.innerHTML = `<p class="text-red-400 col-span-3 text-center">Ocurrió un error al mostrar los datos.</p>`;
+    }
+        /*console.error('Error al cargar top de artistas:', error.message);
+        if (error.message !== 'Autorización necesaria') {
+            const contenedor = document.getElementById('contenedor-top-artistas');
+            contenedor.innerHTML = `<p class="text-red-400 col-span-3">No se encontró información de artistas.</p>`;
+        }*/
+    }
+}
+
+async function cargarTopCanciones() {
+     try {
+        console.log("1. Intentando cargar canciones...");
+        const canciones = await fetchConCredenciales(`${URL_BASE_API}/api/top-tracks`);
+        console.log("2. Canciones recibidas del backend:", canciones); // Para ver si los datos llegan bien
+
+        const contenedor = document.getElementById('contenedor-top-canciones');
+        console.log("3. Elemento contenedor de canciones:", contenedor); // Para ver si encuentra el div
+
+        contenedor.innerHTML = '';
+        canciones.forEach(cancion => {
+            const cancionHTML = `
+                <div class="border-b border-white/20 py-3">
+                    <p class="font-semibold">${cancion.name}</p>
+                    <p class="text-sm text-gray-400">${cancion.artist}</p>
+                </div>
+            `;
+            contenedor.innerHTML += cancionHTML;
+        });
+        console.log("4. ¡Canciones dibujadas en la página!");
+
+    } catch (error) {
+        console.error('El bloque TRY-CATCH falló. Este es el error COMPLETO:');
+    console.error(error); // Esta línea nos mostrará el error real.
+
+    // Código defensivo para mostrar el mensaje de error en la página
+    const contenedorId = this === cargarTopArtistas ? 'contenedor-top-artistas' : 'contenedor-top-canciones';
+    const contenedor = document.getElementById(contenedorId);
+    if (contenedor) {
+        contenedor.innerHTML = `<p class="text-red-400 col-span-3 text-center">Ocurrió un error al mostrar los datos.</p>`;
+    }
+        /*console.error('Error al cargar top de canciones:', error.message);
+         if (error.message !== 'Autorización necesaria') {
+            const contenedor = document.getElementById('contenedor-top-canciones');
+            contenedor.innerHTML = `<p class="text-red-400 col-span-2 text-center">No se pudo cargar la información.</p>`;
+        }*/
+    }
+}
 
         async function cargarCancionesRecientes(){
             try {
