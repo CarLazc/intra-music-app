@@ -4,7 +4,7 @@ from flask_cors import CORS
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
 from spotipy.cache_handler import FlaskSessionCacheHandler
-from flask_sqlalchemy import SQLAlchemy
+#from flask_sqlalchemy import SQLAlchemy
 from dotenv import load_dotenv
 
 load_dotenv() # Carga variables de .env si existe (para desarrollo local)
