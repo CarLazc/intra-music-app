@@ -129,7 +129,7 @@
         const contenedorLogin = document.getElementById('contenedor-login');
         const contenidoPrincipal = document.getElementById('contenido-principal');
         async function fetchConCredenciales(url) {
-            const respuesta = await fetch(url, { mode: 'no-cors', credentials: 'include' });
+            const respuesta = await fetch(url, { credentials: 'include' });
             if (respuesta.status === 401) {
                 mostrarLogin();
                 throw new Error('Autorización necesaria');
@@ -150,52 +150,53 @@
             contenidoPrincipal.classList.remove('hidden');
         }
 
-        async function cargarTopArtistas() {
-    try {
-        console.log("1. Intentando cargar artistas...");
-        const artistas = await fetchConCredenciales(`${URL_BASE_API}/api/top-artists`);
-        console.log("2. Artistas recibidos del backend:", artistas); // Para ver si los datos llegan bien
+        async function cargarTopArtistas(time_range_elegido = 'long_term') {
+        try {
+            console.log("1. Intentando cargar artistas...");
+            const url = `${URL_BASE_API}/api/top-artists?time_range=${time_range_elegido}`;
+            const artistas = await fetchConCredenciales(url);
+            console.log("2. Artistas recibidos del backend:", artistas); // Para ver si los datos llegan bien
 
-        const contenedor = document.getElementById('contenedor-top-artistas');
-        console.log("3. Elemento contenedor de artistas:", contenedor); // Para ver si encuentra el div
+            const contenedor = document.getElementById('contenedor-top-artistas');
+            console.log("3. Elemento contenedor de artistas:", contenedor); // Para ver si encuentra el div
 
-        contenedor.innerHTML = ''; 
-        artistas.forEach(artista => {
-            const tarjetaArtistaHTML = `
-                <div class="flex flex-col items-center">
-                    <div class="relative w-52 h-52">
-                        <img src="${artista.imageUrl}" alt="${artista.name}" class="w-full h-full object-cover ${artista.shape} shadow-lg">
+            contenedor.innerHTML = ''; 
+            artistas.forEach(artista => {
+                const tarjetaArtistaHTML = `
+                    <div class="flex flex-col items-center">
+                        <div class="relative w-52 h-52">
+                            <img src="${artista.imageUrl}" alt="${artista.name}" class="w-full h-full object-cover ${artista.shape} shadow-lg">
+                        </div>
+                        <h3 class="font-bold text-2xl mt-6 mb-2 text-blue-900">${artista.name}</h3>
+                        <p class="text-sm text-blue-900 max-w-xs">${artista.description}</p>
                     </div>
-                    <h3 class="font-bold text-2xl mt-6 mb-2 text-blue-900">${artista.name}</h3>
-                    <p class="text-sm text-blue-900 max-w-xs">${artista.description}</p>
-                </div>
-            `;
-            contenedor.innerHTML += tarjetaArtistaHTML;
-        });
-        console.log("4. ¡Artistas dibujados en la página!");
+                `;
+                contenedor.innerHTML += tarjetaArtistaHTML;
+            });
+            console.log("4. ¡Artistas dibujados en la página!"); //Confirmacion
 
-    } catch (error) {
-        console.error('El bloque TRY-CATCH falló. Este es el error COMPLETO:');
-    console.error(error); // Esta línea nos mostrará el error real.
+            } catch (error) {
+                console.error('El bloque TRY-CATCH falló. Este es el error COMPLETO:');
+                console.error(error); 
 
-    // Código defensivo para mostrar el mensaje de error en la página
-    const contenedorId = this === cargarTopArtistas ? 'contenedor-top-artistas' : 'contenedor-top-canciones';
-    const contenedor = document.getElementById(contenedorId);
-    if (contenedor) {
-        contenedor.innerHTML = `<p class="text-red-400 col-span-3 text-center">Ocurrió un error al mostrar los datos.</p>`;
-    }
+            const contenedorId = this === cargarTopArtistas ? 'contenedor-top-artistas' : 'contenedor-top-canciones';
+            const contenedor = document.getElementById(contenedorId);
+            if (contenedor) {
+                contenedor.innerHTML = `<p class="text-red-400 col-span-3 text-center">Ocurrió un error al mostrar los datos.</p>`;
+            }
         /*console.error('Error al cargar top de artistas:', error.message);
         if (error.message !== 'Autorización necesaria') {
             const contenedor = document.getElementById('contenedor-top-artistas');
             contenedor.innerHTML = `<p class="text-red-400 col-span-3">No se encontró información de artistas.</p>`;
         }*/
-    }
-}
+            }
+        }
 
 async function cargarTopCanciones() {
      try {
         console.log("1. Intentando cargar canciones...");
-        const canciones = await fetchConCredenciales(`${URL_BASE_API}/api/top-tracks`);
+        const url = `${URL_BASE_API}/api/top-tracks?time_range=${time_range_elegido}`;
+        const canciones = await fetchConCredenciales(url);
         console.log("2. Canciones recibidas del backend:", canciones); // Para ver si los datos llegan bien
 
         const contenedor = document.getElementById('contenedor-top-canciones');
@@ -259,6 +260,12 @@ async function cargarTopCanciones() {
             const scrollLinks = document.querySelectorAll('.scroll-link');
             const contentSections = document.querySelectorAll('[data-content-route]');
             const defaultRoute = 'inicio';
+            const timeRangeSelector = document.getElementById('time-range-select');
+            timeRangeSelector.addEventListener('change', (event) => {
+                const nuevoTimeRange = event.target.value;
+                cargarTopArtistas(nuevoTimeRange);
+                cargarTopCanciones(nuevoTimeRange);
+            });
             function handleRouteChange(route) {
                 contentSections.forEach(section => {
                     section.classList.add('hidden');
@@ -305,7 +312,8 @@ async function cargarTopCanciones() {
 
             async function initialize() {
                 try {
-                    await Promise.all([cargarTopArtistas(), cargarTopCanciones()]);
+                    const initialRange = document.getElementById('time-range-select').value;
+                    await Promise.all([cargarTopArtistas(initialRange), cargarTopCanciones(initialRange)]);
                     mostrarPanel();
                     const initialPath = window.location.pathname;
                     let initialRoute = defaultRoute;

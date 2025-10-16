@@ -1,21 +1,36 @@
-# intra_backend.py (modificado)
 import os
 from flask import Flask, session, redirect, url_for, request, jsonify
 from flask_cors import CORS
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
 from spotipy.cache_handler import FlaskSessionCacheHandler
-from dotenv import load_dotenv # Opcional, para desarrollo local
+from flask_sqlalchemy import SQLAlchemy
+from dotenv import load_dotenv
 
 load_dotenv() # Carga variables de .env si existe (para desarrollo local)
 
 app = Flask(__name__)
-app = Flask(__name__)
+#app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
+#db=SQLAlchemy(app)
 app.config['SESSION_COOKIE_SAMESITE'] = 'None'
 app.config['SESSION_COOKIE_SECURE'] = True
 app.config['SESSION_COOKIE_HTTPONLY'] = True
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
 CORS(app, supports_credentials=True, origins=["https://intramusic.netlify.app"])
+
+#Implementacion de base de datos en proceso
+#Su finalizacion y uso aun se encuentra en consideracion
+
+#class Usuario(db.Model):
+ #   id = db.column(db.Integer, primary_key=True)
+  #  display_name = db.column(db.String(50))
+
+#class Artista_por_usuario(db.Model):
+ #   id = db.column(db.Integer, primary_key=True)
+  #  Usuario.id = db.column(db.Integer, db.ForeignKey('usuario.id'))
+   # nombre_artista = db.column(dv.String(50))
+    #id_artista = db.column(db.String(62))
+
 
 client_id = os.environ.get('SPOTIPY_CLIENT_ID')
 client_secret = os.environ.get('SPOTIPY_CLIENT_SECRET')
@@ -48,7 +63,10 @@ def callback():
 def get_top_artists():
     if not sp_oauth.validate_token(cache_handler.get_cached_token()):
         return jsonify({'error': 'Authorization required'}), 401
-    top_artists = sp.current_user_top_artists(limit=3, time_range='long_term')
+    time_range_elegido = request.args.get('time_range', 'long_term')
+    if time_range_elegido not in ['short_term', 'medium_term', 'long_term']:
+        return jsonify({'error': 'Invalid time_range parameter'}), 400
+    top_artists = sp.current_user_top_artists(limit=3, time_range=time_range_elegido)
     artists_data = []
     for i, artist in enumerate(top_artists['items']):
         image_url = artist['images'][0]['url'] if artist['images'] else "https://placehold.co/208x208/7c3aed/ffffff?text=Artist"
@@ -65,7 +83,10 @@ def get_top_artists():
 def get_top_tracks():
     if not sp_oauth.validate_token(cache_handler.get_cached_token()):
         return jsonify({'error': 'Authorization required'}), 401
-    top_tracks = sp.current_user_top_tracks(limit=10, time_range='long_term')
+    time_range_elegido = request.args.get('time_range', 'long_term')
+    if time_range_elegido not in ['short_term', 'medium_term', 'long_term']:
+        return jsonify({'error': 'Invalid time_range parameter'}), 400
+    top_tracks = sp.current_user_top_tracks(limit=10, time_range=time_range_elegido)
     tracks_data = []
     for track in top_tracks['items']:
         tracks_data.append({
