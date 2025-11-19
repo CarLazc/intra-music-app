@@ -7,6 +7,7 @@ from spotipy.cache_handler import FlaskSessionCacheHandler
 from dotenv import load_dotenv
 from collections import Counter
 from datetime import datetime
+import time
 
 # Import para la db
 from config import Config
@@ -56,6 +57,17 @@ def login():
     auth_url = sp_oauth.get_authorize_url()
     return redirect(auth_url)
 
+# Ruta para cerrar sesión
+@app.route('/api/logout', methods=['POST'])
+def logout():
+    try:
+        session.clear()
+        print("Sesión cerrada para el usuario.")
+        return jsonify({'message': 'Logged out successfully'}), 200
+    except Exception as e:
+        print(f"Error durante el cierre de sesión: {e}")
+        return jsonify({'error': 'Failed to log out'}), 500
+
 # Ruta para ingreso de sesion y guardado de los datos en la db
 @app.route('/callback')
 def callback():
@@ -95,7 +107,8 @@ def callback():
         db.session.rollback()
         print(f"Error en el callback de autenticación: {e}")
         return redirect(FRONTEND_URL + '?error=auth_failed') 
-    return redirect(FRONTEND_URL)
+    cache_buster = str(int(time.time()))
+    return redirect(FRONTEND_URL + '?auth=success&v=' + cache_buster)
 
 # Ruta para obtener los artistas mas escuchados
 @app.route('/api/top-artists')

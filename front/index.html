@@ -53,6 +53,13 @@
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); 
             border-radius: 12px;
         }
+
+        .scroll-snap-container {
+            scroll-snap-type: y proximity;
+        }
+        .scroll-snap-child {
+            scroll-snap-align: start;
+        }
     </style>
 </head>
 
@@ -65,32 +72,30 @@
         </a>
     </div>
 
-    <div id="contenido-principal" class="max-w-7xl mx-auto hidden">
+    <div id="contenido-principal" class="hidden">
         <header class="absolute top-0 left-0 right-0 z-30 p-4">
-            <div class="mx-auto max-w-5xl">
-                <nav class="flex justify-between items-center text-sm font-semibold tracking-wider">
-                    <a href="#contenido-principal" class="flex items-center hover:opacity-80 transition-opacity mr-auto"> 
-                        <svg width="45" height="45">
-                            <use xlink:href="assets/svg/sprites.svg#logotemp"></use>
+            <nav class="flex justify-between items-center text-sm font-semibold tracking-wider">
+                <a href="#contenido-principal" class="flex items-center hover:opacity-80 transition-opacity mr-auto"> 
+                    <svg width="45" height="45">
+                        <use xlink:href="assets/svg/sprites.svg#logotemp"></use>
+                    </svg>
+                </a>
+                <div class="flex items-center space-x-6">
+                    <a href="#seccion-canciones" class="scroll-link hover:text-indigo-700 transition-colors">CANCIONES</a>
+                    <a href="#seccion-artistas" class="scroll-link hover:text-indigo-700 transition-colors">ARTISTAS</a>
+                    <a href="#resumen-personal" class="nav-link hover:text-white transition-colors bg-white/10 backdrop-blur-sm border border-transparent hover:border-white/20 px-4 py-2 rounded-full" data-route="resumen">RESUMEN PERSONAL</a>
+                    <button id="open-menu-btn" class="p-2 border border-white rounded-md focus:outline-none focus:ring-2 focus:ring-white/50">
+                        <svg width="24" height="24">
+                            <use xlink:href="assets/svg/sprites.svg#offcanva"></use>
                         </svg>
-                    </a>
-                    <div class="flex items-center space-x-6">
-                        <a href="#seccion-canciones" class="scroll-link hover:text-indigo-700 transition-colors">CANCIONES</a>
-                        <a href="#seccion-artistas" class="scroll-link hover:text-indigo-700 transition-colors">ARTISTAS</a>
-                        <a href="#resumen-personal" class="nav-link hover:text-white transition-colors bg-white/10 backdrop-blur-sm border border-transparent hover:border-white/20 px-4 py-2 rounded-full" data-route="resumen">RESUMEN PERSONAL</a>
-                        <button id="open-menu-btn" class="p-2 border border-white rounded-md focus:outline-none focus:ring-2 focus:ring-white/50">
-                            <svg width="24" height="24">
-                                <use xlink:href="assets/svg/sprites.svg#offcanva"></use>
-                            </svg>
-                        </button>
-                    </div>
-                </nav>
-            </div>
+                    </button>
+                </div>
+            </nav>
         </header>
 
         <main id="ruta-contenedor">
             <div id="vista-inicio" data-content-route="inicio">
-                <section class="relative h-[60vh] bg-indigo-400 md:h-[80vh] flex items-center justify-center overflow-hidden">
+                <section id="seccion-inicio-hero" class="relative min-h-screen bg-indigo-400 flex items-center justify-center overflow-hidden">
                     <div class="absolute inset-0">
                         <div class="absolute top-[-20%] left-[-15%] w-96 h-96 glass-sphere opacity-70 blur-md"></div>
                         <div class="absolute bottom-[-10%] right-[-10%] w-[28rem] h-[28rem] glass-sphere opacity-50 blur-lg"></div>
@@ -103,34 +108,34 @@
                     </div>
                 </section>
 
-                <section  id="seccion-artistas" class="py-16 md:py-24 relative" style="background-image: url('assets/static/fondo-seccion-artistas.jpg'); background-size: cover; background-position: center;">
+                <section  id="seccion-artistas" class="py-16 md:py-24 relative min-h-screen flex flex-col justify-center" style="background-image: url('assets/static/fondo-seccion-artistas.jpg'); background-size: cover; background-position: center;">
                     <div class="absolute inset-0 bg-cyan-200/20"></div>
-                    <div class="relative z-10 px-6 mx-auto max-w-5xl">
-                        <h2 class="text-center font-heading text-4xl md:text-5xl font-bold mb-12 text-blue-900">Top 3 Artistas</h2>
+                    <div class="relative z-10 px-6 mx-auto max-w-5xl lg:max-w-6xl xl:max-w-7xl">
+                        <h2 class="text-center font-heading text-4xl md:text-5xl lg:text-6xl font-bold mb-12 text-blue-900">Top 3 Artistas</h2>
                         <div class="contenedor-top-artistas grid grid-cols-1 md:grid-cols-3 gap-8 text-center min-h-[20rem] items-center justify-center">
                             <p class="col-span-3 text-gray-400">Cargando tu top de artistas...</p>
                         </div>
                     </div>
                 </section>
 
-                <section id="seccion-canciones" class="py-16 md:py-24 relative bg-indigo-900">
-                    <div class="px-6 mx-auto max-w-4xl">
-                        <h2 class="text-center font-heading text-4xl md:text-5xl font-bold mb-12">Top 10 Canciones más escuchadas</h2>
+                <section id="seccion-canciones" class="py-16 md:py-24 relative bg-indigo-900 min-h-screen flex flex-col justify-center">
+                    <div class="px-6 mx-auto max-w-4xl lg:max-w-5xl xl:max-w-6xl">
+                        <h2 class="text-center font-heading text-4xl md:text-5xl lg:text-6xl font-bold mb-12">Top 10 Canciones más escuchadas</h2>
                         <div id="contenedor-top-canciones" class="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-6 min-h-[10rem]">
                             <p class="col-span-2 text-gray-400 text-center">Cargando tu top de canciones...</p>
                         </div>
                     </div>
                 </section>
 
-                <section id="seccion-imagenes">
-                    <div class="relative grid h-[500px] max-w-7xl grid-cols-12 grid-rows-8 mx-auto bg-sky-200 overflow-hidden">
-                        <span class="z-30 col-start-1 col-span-5 row-start-1 row-span-2 font-heavy text-7xl md:text-9xl text-indigo-600 leading-none flex items-center">Dance</span>
-                        <span class="z-30 col-start-8 col-span-5 row-start-1 row-span-2 font-heavy text-7xl md:text-9xl text-indigo-600 leading-none flex items-center">Hip hop</span>
-                        <span class="z-30 col-start-7 col-span-8 row-start-3 row-span-2 font-heavy text-7xl md:text-9xl text-indigo-600 leading-none flex items-center">Instrumental</span>
-                        <span class="z-30 col-start-1 col-span-5 row-start-5 row-span-2 font-heavy text-7xl md:text-9xl text-indigo-600 leading-none flex items-center">Metal</span>
-                        <span class="z-30 col-start-7 col-span-5 row-start-5 row-span-2 font-heavy text-7xl md:text-9xl text-indigo-600 leading-none flex items-center">Salsa</span>
-                        <span class="z-30 col-start-1 col-span-5 row-start-7 row-span-2 font-heavy text-7xl md:text-9xl text-indigo-600 leading-none flex items-center">Cumbia</span>
-                        <span class="z-30 col-start-9 col-span-5 row-start-7 row-span-2 font-heavy text-7xl md:text-9xl text-indigo-600 leading-none flex items-center">K-Pop</span>
+                <!--<section id="seccion-imagenes" class="min-h-screen flex items-center justify-center bg-sky-200">
+                    <div class="relative grid h-[500px] lg:h-[600px] xl:h-[700px] max-w-7xl w-full grid-cols-12 grid-rows-8 mx-auto overflow-hidden">
+                        <span class="z-30 col-start-1 col-span-5 row-start-1 row-span-2 font-heavy text-7xl md:text-9xl xl:text-[10rem] text-indigo-600 leading-none flex items-center">Dance</span>
+                        <span class="z-30 col-start-8 col-span-5 row-start-1 row-span-2 font-heavy text-7xl md:text-9xl xl:text-[10rem] text-indigo-600 leading-none flex items-center">Hip hop</span>
+                        <span class="z-30 col-start-7 col-span-8 row-start-3 row-span-2 font-heavy text-7xl md:text-9xl xl:text-[10rem] text-indigo-600 leading-none flex items-center">Instrumental</span>
+                        <span class="z-30 col-start-1 col-span-5 row-start-5 row-span-2 font-heavy text-7xl md:text-9xl xl:text-[10rem] text-indigo-600 leading-none flex items-center">Metal</span>
+                        <span class="z-30 col-start-7 col-span-5 row-start-5 row-span-2 font-heavy text-7xl md:text-9xl xl:text-[10rem] text-indigo-600 leading-none flex items-center">Salsa</span>
+                        <span class="z-30 col-start-1 col-span-5 row-start-7 row-span-2 font-heavy text-7xl md:text-9xl xl:text-[10rem] text-indigo-600 leading-none flex items-center">Cumbia</span>
+                        <span class="z-30 col-start-9 col-span-5 row-start-7 row-span-2 font-heavy text-7xl md:text-9xl xl:text-[10rem] text-indigo-600 leading-none flex items-center">K-Pop</span>
                         <div class="z-20 col-start-5 col-span-2 row-start-1 row-span-2 flex justify-center items-center">
                             <div class="w-5/6 h-5/6 genre-image-placeholder"></div>
                         </div>
@@ -150,24 +155,24 @@
                             <div class="w-full h-4/5 genre-image-placeholder"></div>
                         </div>
                     </div>
-                </section>
+                </section>-->
 
-                <section class="py-16 py-24 relative bg-indigo-600">
-                    <div class="px-6 mx-auto max-w-5xl flex items-center gap-12">
+                <section class="py-16 py-24 relative min-h-screen flex items-center" style="background: linear-gradient(20deg, oklch(51.1% 0.262 276.966), oklch(90.1% 0.058 230.902));">
+                    <div class="px-6 mx-auto max-w-5xl lg:max-w-6xl xl:max-w-7xl flex items-center gap-12">
                         <div class="w-1/2">
-                            <img src="assets/static/genero_para_ti.jpg" id="genero-imagen" alt="Imagen descriptiva del género" class="w-full max-w-md mx-auto rounded-2xl shadow-xl">
+                            <img src="assets/static/genero_para_ti.jpg" id="genero-imagen" alt="Imagen descriptiva del género" class="w-full max-w-md lg:max-w-lg xl:max-w-xl mx-auto rounded-2xl shadow-xl">
                         </div>
                         <div class="w-1/2">
-                            <h2 id="genero-titulo" class="font-heading text-4xl md:text-5xl font-bold mb-4 text-cyan-50">GÉNERO PARA TI</h2>
-                            <p id="genero-descripcion" class="text-cyan-50">Basado en tu historial este género musical es perfecto para ti y podria ser tu nueva obsesión.</p>
-                            <p class="text-cyan-50">¡Descubrelo, es hora de expandir tus horizontes!</p>
+                            <h2 id="genero-titulo" class="font-heading text-4xl md:text-5xl lg:text-6xl font-bold mb-4 text-cyan-50">GÉNERO PARA TI</h2>
+                            <p id="genero-descripcion" class="text-cyan-50 lg:text-lg">Basado en tu historial este género musical es perfecto para ti y podria ser tu nueva obsesión.</p>
+                            <p class="text-cyan-50 lg:text-lg">¡Descubrelo, es hora de expandir tus horizontes!</p>
                         </div>
                     </div>
                 </section>
             </div>
 
             <div id="vista-resumen" data-content-route="resumen" class="hidden">
-                <section class="py-16 md:py-24" style="background: linear-gradient(20deg, rgba(111, 115, 231, 0.91), rgba(76, 69, 206, 0.91));">
+                <section class="py-16 md:py-24 min-h-screen flex flex-col justify-center" style="background: linear-gradient(20deg, rgba(111, 115, 231, 0.91), rgba(76, 69, 206, 0.91));">
                     <div class="relative z-10 px-6 mx-auto max-w-5xl text-center"> 
                         <select id="time-range-select" class="mb-8 p-2 rounded-md text-blue-900 font-semibold">
                             <option value="long_term">Último año</option>
@@ -189,9 +194,9 @@
             </div>
 
             <div id="vista-escuchado-recientemente" data-content-route="reciente" class="hidden">
-                <section class="py-16 md:py-48" style="background: linear-gradient(20deg, rgba(111,115,231,0.91), rgba(76,69,206,0.91));">
-                    <div class="relative z-10 px-6 mx-auto max-w-5xl text-center"> 
-                        <h2 class="font-heading text-4xl md:text-5xl font-bold mb-12 text-white">Canciones Escuchadas Recientemente</h2>
+                <section class="py-16 md:py-48 min-h-screen flex flex-col justify-center" style="background: linear-gradient(20deg, rgba(111,115,231,0.91), rgba(76,69,206,0.91));">
+                    <div class="relative z-10 px-6 mx-auto max-w-5xl lg:max-w-6xl xl:max-w-7xl text-center"> 
+                        <h2 class="font-heading text-4xl md:text-5xl lg:text-6xl font-bold mb-12 text-white">Canciones Escuchadas Recientemente</h2>
                         <div id="contenedor-canciones-recientes" class="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-6 min-h-[10rem] items-start justify-center">
                             <p class="col-span-2 text-gray-400 text-center">Cargando tus canciones recientes...</p>
                         </div>
@@ -200,11 +205,11 @@
             </div>
 
             <div id="vista-estadisticas-adicionales" data-content-route="estadisticas" class="hidden">
-                <section class="py-16 md:py-48" style="background: linear-gradient(20deg, rgba(111,115,231,0.91), rgba(76,69,206,0.91));">
-                    <div class="relative z-10 px-6 mx-auto max-w-5xl text-center"> 
-                        <h2 class="font-heading text-4xl md:text-5xl font-bold mb-12 text-white">Más Estadísticas</h2>
+                <section class="py-16 md:py-48 min-h-screen flex flex-col justify-center" style="background: linear-gradient(20deg, rgba(111,115,231,0.91), rgba(76,69,206,0.91));">
+                    <div class="relative z-10 px-6 mx-auto max-w-5xl lg:max-w-6xl xl:max-w-7xl text-center"> 
+                        <h2 class="font-heading text-4xl md:text-5xl lg:text-6xl font-bold mb-12 text-white">Más Estadísticas</h2>
                         
-                        <div id="contenedor-perfil-usuario" class="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-8 min-h-[10rem] items-center justify-items-center sm:justify-items-start max-w-lg mx-auto mb-16">
+                        <div id="contenedor-perfil-usuario" class="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-8 min-h-[10rem] items-center justify-items-center sm:justify-items-start max-w-lg lg:max-w-xl mx-auto mb-16">
                             <p class="col-span-2 text-gray-400 text-center">Cargando tu perfil de usuario...</p>
                         </div>
                         
@@ -215,8 +220,8 @@
                             <option value="radar">Radar</option>
                         </select>
 
-                        <h2 class="font-heading text-4xl md:text-5xl font-bold mt-16 mb-8 text-white">Géneros más escuchados segun tus artistas</h2>
-                        <div class="bg-white/10 p-4 rounded-lg shadow-lg max-w-2xl mx-auto">
+                        <h2 class="font-heading text-4xl md:text-5xl lg:text-6xl font-bold mt-16 mb-8 text-white">Géneros más escuchados segun tus artistas</h2>
+                        <div class="bg-white/10 p-4 rounded-lg shadow-lg max-w-2xl lg:max-w-3xl mx-auto">
                             <canvas id="grafica-generos"></canvas>
                         </div>
 
@@ -225,7 +230,7 @@
             </div>
             
             <div id="vista-eliminar-datos" data-content-route="eliminar" class="hidden">
-                <section class="py-16 md:py-48" style="background: linear-gradient(20deg, rgba(111,115,231,0.91), rgba(76,69,206,0.91));">
+                <section class="py-16 md:py-48 min-h-screen flex flex-col justify-center" style="background: linear-gradient(20deg, rgba(111,115,231,0.91), rgba(76,69,206,0.91));">
                     <div class="relative z-10 px-6 mx-auto max-w-lg text-center">
                         <h2 class="font-heading text-4xl md:text-5xl font-bold mb-6 text-white">Eliminar Mis Datos</h2>
                         <p class="text-gray-300 mb-8">
@@ -240,8 +245,31 @@
                 </div>
 
             <div id="vista-terminos-de-uso" data-content-route="terminos" class="hidden">
-                <section class="py-16 md:py-48" style="background: linear-gradient(20deg, rgba(111,115,231,0.91), rgba(76,69,206,0.91));">
-                    <div class="col-span-2 text-gray-400 text-center">Esta zona aun esta en desarrollo</div>
+                <section class="py-16 md:py-48 min-h-screen flex flex-col justify-center" style="background: linear-gradient(20deg, rgba(111,115,231,0.91), rgba(76,69,206,0.91));">
+                    <div class="relative z-10 px-6 mx-auto max-w-3xl text-left">
+                        <h2 class="font-heading text-4xl md:text-5xl font-bold mb-12 text-white text-center">Términos y Condiciones de IntraMusic</h2>
+                        <p class="mb-4 text-gray-200">Al utilizar IntraMusic, usted acepta los Términos y Condiciones establecidos.</p>
+                        <p class="mb-8 text-gray-200">IntraMusic tiene como propósito recomendar nuevos géneros musicales conforme a tus géneros y canciones más escuchadas en la plataforma musical con razón social "Spotify AB”.</p>
+                        <h3 class="font-heading text-2xl font-bold mt-8 mb-4 text-white">I. ACCESO A LA INFORMACIÓN DEL USUARIO</h3>
+                        <p class="mb-4 text-gray-200">IntraMusic para cumplir con su propósito accederá a los siguientes datos del usuario respecto a la aplicación “Spotifiy AB”:</p>
+                        <ul class="list-disc list-inside ml-4 mb-4 text-gray-200 space-y-2">
+                            <li>Cookies de Inicio de Sesión</li>
+                            <li>Suscripción o Plan</li>
+                            <li>Nombre del usuario</li>
+                            <li>Foto de perfil</li>
+                            <li>Canciones reproducidas</li>
+                        </ul>
+                        <h3 class="font-heading text-2xl font-bold mt-8 mb-4 text-white">II. USO Y ALMACENAMIENTO DE DATOS</h3>
+                        <p class="mb-4 text-gray-200">La aplicación solo utilizará los datos descritos en el punto I para recomendar nuevas canciones y géneros musicales al usuario.</p>
+                        <p class="mb-4 text-gray-200">IntraMusic no almacena ni guarda información personal adicional, así como tampoco datos sensibles, financieros o de ubicación.</p>
+                        <h3 class="font-heading text-2xl font-bold mt-8 mb-4 text-white">III. ELIMINACIÓN DE DATOS</h3>
+                        <p class="mb-4 text-gray-200">El usuario podrá eliminar los datos a los cuales la aplicación tiene acceso en cualquier momento.</p>
+                        <h3 class="font-heading text-2xl font-bold mt-8 mb-4 text-white">IV. RESPONSABILIDAD</h3>
+                        <p class="mb-4 text-gray-200">IntraMusic solamente es responsable de los datos e información de los cuales tiene acceso, por lo que se exime a IntraMusic de cualquier responsabilidad por cualquier daño que se ocasione al equipo, información, patrimonio o persona que se presente en la utilización de la aplicación.</p>
+                        <h3 class="font-heading text-2xl font-bold mt-8 mb-4 text-white">V. ACTUALIZACIÓN DE TÉRMINOS Y CONDICIONES</h3>
+                        <p class="mb-4 text-gray-200">IntraMusic se reserva el derecho de actualizar o modificar los Términos y Condiciones de la aplicación por cualquier motivo.</p>
+                        <p class="mb-4 text-gray-200">El usuario deberá revisar periódicamente el contenido de la presente política, en el entendido de que, si el usuario sigue utilizando IntraMusic una vez realizado cada modificación a los Términos y Condiciones, se entenderá como el consentimiento y aceptación del usuario a dichas modificación.</p>
+                    </div>
                 </section>
             </div>
         </main>
@@ -269,12 +297,19 @@
         </div>
     </div>
 
+    <a href="#seccion-inicio-hero" id="scroll-top-btn" class="fixed bottom-8 right-8 z-50 p-3 bg-white/20 backdrop-blur-sm rounded-full shadow-lg text-white hover:bg-white/30 transition-all transform hover:scale-110 hidden">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7" />
+        </svg>
+    </a>
+
     <script>
         // Definicion de constantes
         const URL_BASE_API = 'http://127.0.0.1:5000'; //Cambiar al URL donde se aloje el backend (Cambiara cuando se suba a produccion)
         const contenedorLogin = document.getElementById('contenedor-login');
         const contenidoPrincipal = document.getElementById('contenido-principal');
         let generosChartInstance = null;
+        let generosDataCache = []; // Caché para los datos de la gráfica
 
         // Funcion de manejo de autenticacion
         async function fetchConCredenciales(url) {
@@ -309,22 +344,26 @@
                 contenedor.innerHTML = '';
                 const esVistaResumen = contenedor.closest('#vista-resumen');
                 artistas.forEach(artista => {
-                    // Ajusta clases segun la vista (reutilizacion de funciones)
-                    let wrapperClasses = 'relative w-52 h-52';
+                    let wrapperClasses = 'relative w-52 h-52 lg:w-64 lg:h-64';
                     let imageClasses = `w-full h-full object-cover ${artista.shape} shadow-lg`; 
                     let textClasses = 'text-blue-900';
+                    let titleClasses = 'font-bold text-2xl lg:text-3xl mt-6 mb-2';
+                    let descClasses = 'text-sm lg:text-base max-w-xs';
+                    
                     if (esVistaResumen) {
-                        wrapperClasses = 'relative w-[192px] h-[272px]';
+                        wrapperClasses = 'relative w-[192px] h-[272px] lg:w-[240px] lg:h-[340px]';
                         imageClasses = 'w-full h-full object-cover rounded-full shadow-lg';
                         textClasses = 'text-white';
+                        titleClasses = 'font-bold text-2xl lg:text-3xl mt-6 mb-2';
+                        descClasses = 'text-sm lg:text-base max-w-xs';
                     }
                     const tarjetaArtistaHTML = `
                         <div class="flex flex-col items-center">
                             <div class="${wrapperClasses}">
                                 <img src="${artista.imageUrl}" alt="${artista.name}" class="${imageClasses}">
                             </div>
-                            <h3 class="font-bold text-2xl mt-6 mb-2 ${textClasses}">${artista.name}</h3>
-                            <p class="text-sm ${textClasses} max-w-xs">${artista.description}</p>
+                            <h3 class="${titleClasses} ${textClasses}">${artista.name}</h3>
+                            <p class="${descClasses} ${textClasses}">${artista.description}</p>
                         </div>
                     `;
                     contenedor.innerHTML += tarjetaArtistaHTML;
@@ -343,7 +382,7 @@
             }
         }
 
-        // Se comporta diferente segun el contenedor al que responda
+        // Funcion asincrona para cargar top de canciones segun el tiempo seleccionado
         async function cargarTopCanciones(time_range_elegido = 'long_term') { 
             try {
                 const url = `${URL_BASE_API}/api/top-tracks?time_range=${time_range_elegido}`;
@@ -354,8 +393,8 @@
                     canciones.forEach(cancion => {
                         const cancionHTML = `
                             <div class="border-b border-white/20 py-3">
-                                <p class="font-semibold">${cancion.name}</p>
-                                <p class="text-sm text-gray-400">${cancion.artist}</p>
+                                <p class="font-semibold lg:text-lg">${cancion.name}</p>
+                                <p class="text-sm text-gray-400 lg:text-base">${cancion.artist}</p>
                             </div>
                         `;
                         contenedorPrincipal.innerHTML += cancionHTML;
@@ -368,11 +407,11 @@
                     top3Canciones.forEach(cancion => {
                         const tarjetaCancionHTML = `
                             <div class="flex flex-col items-center text-left">
-                                <div class="relative w-[272px] aspect-square">
+                                <div class="relative w-[272px] lg:w-[320px] aspect-square">
                                     <img src="${cancion.imageUrl}" alt="${cancion.name}" class="w-full h-full object-cover rounded-lg shadow-lg">
                                 </div>
-                                <h3 class="font-semibold text-lg mt-4 text-white text-center">${cancion.name}</h3>
-                                <p class="text-sm text-gray-300">${cancion.artist}</p>
+                                <h3 class="font-semibold text-lg lg:text-xl mt-4 text-white text-center">${cancion.name}</h3>
+                                <p class="text-sm lg:text-base text-gray-300">${cancion.artist}</p>
                             </div>
                         `;
                         contenedorResumen.innerHTML += tarjetaCancionHTML;
@@ -389,6 +428,7 @@
             }
         }
 
+        // Funcion asincrona para cargar canciones recientes
         async function cargarCancionesRecientes(){
             try {
                 const canciones = await fetchConCredenciales(`${URL_BASE_API}/api/recently-played`);
@@ -397,8 +437,8 @@
                 canciones.forEach(cancion => {
                     const cancionHTML = `
                         <div class="border-b border-white/20 py-3">
-                            <p class="font-semibold">${cancion.name}</p>
-                            <p class="text-sm text-gray-400">${cancion.artist}</p>
+                            <p class="font-semibold lg:text-lg">${cancion.name}</p>
+                            <p class="text-sm text-gray-400 lg:text-base">${cancion.artist}</p>
                         </div>
                     `;
                     contenedor.innerHTML += cancionHTML;
@@ -406,12 +446,13 @@
             } catch (error) {
                 console.error('No se encontraron las canciones:', error.message);
                 if (error.message !== 'Autorización necesaria') {
-                    const contenedor = document.getElementById('contenedor-top-canciones');
+                    const contenedor = document.getElementById('contenedor-canciones-recientes');
                     contenedor.innerHTML = `<p class="text-red-400 col-span-2 text-center">No se pudo cargar la información.</p>`;
                 }
             }
         }
 
+        // Funcion asincrona para cargar el perfil del usuario
         async function cargarPerfilUsuario(){
             try{
                 const perfil =  await fetchConCredenciales(`${URL_BASE_API}/api/user-profile`);
@@ -427,7 +468,6 @@
                     </div>
                 `;
                 contenedor.innerHTML += perfilHTML;
-
             }catch(error){
                 console.error('No se encontro el perfil: ', error.message);
                 if(error.message !== 'Autorización necesaria'){
@@ -439,7 +479,7 @@
             }
         }
 
-        // Funcion para cargar minutos escuchados
+        // Funcion asincrona para cargar los minutos escuchados segun la db
         async function cargarMinutos() {
             try {
                 const minutos = await fetchConCredenciales(`${URL_BASE_API}/api/listening-minutes`);
@@ -466,7 +506,6 @@
             }catch(error){
                 console.error('No se encontraron los minutos escuchados: ', error.message);
                 if (error.message !== 'Autorización necesaria') {
-                    // Manejar error en ambos contenedores
                     const contenedorPerfil = document.getElementById('contenedor-perfil-usuario');
                     if (contenedorPerfil) {
                          contenedorPerfil.innerHTML += `<p class="text-red-400">Error al cargar minutos.</p>`;
@@ -479,76 +518,50 @@
             }
         }
 
-
+        // Funcion asincrona para cargar los generos mas escuchados y crear la grafica
         async function cargarGeneros() {
             try {
                 const generos = await fetchConCredenciales(`${URL_BASE_API}/api/top-genres`);
-                // const contenedor = document.getElementById('contenedor-generos');
-                // if (contenedor) {
-                //     contenedor.innerHTML = '';
-                // }
-
                 generosDataCache = generos;
-
                 if (generos.length === 0) {
-                    // if (contenedor) {
-                    //     contenedor.innerHTML = '<p class="text-gray-400 col-span-2 text-center">No se encontraron géneros principales.</p>';
-                    // }
                     if (generosChartInstance) {
                         generosChartInstance.destroy();
                         generosChartInstance = null;
                     }
                     return;
                 }
-                // generos.forEach(genero => {
-                //     const generoHTML = `
-                //         <div class="border-b border-white/20 py-3 w-full text-left">
-                //             <p class="font-semibold text-white capitalize">${genero.genre}</p>
-                //             <p class="text-sm text-gray-400">Apariciones: ${genero.count}</p>
-                //         </div>
-                //     `;
-                //     if (contenedor) {
-                //         contenedor.innerHTML += generoHTML;
-                //     }
-                // });
                 const selectorTipo = document.getElementById('type-graph');
                 const tipoSeleccionado = selectorTipo ? selectorTipo.value : 'doughnut';
-
                 crearGraficaGeneros(generos, tipoSeleccionado);
-
             } catch (error) {
                 console.error('No se encontraron los géneros: ', error.message);
                 if (error.message !== 'Autorización necesaria') {
-                    // const contenedor = document.getElementById('contenedor-generos'); 
-                    // if (contenedor) {
-                    //     contenedor.innerHTML = `<p class="text-red-400 col-span-2 text-center">No se pudo cargar la información de géneros.</p>`;
-                    // }
                     console.error("No se pudo cargar la información de géneros.");
                 }
             }
         }
 
-        // Coloca esto después de tu función cargarGeneros()
+        // Funcion asincrona para cargar la recomendacion de genero personalizada
         async function cargarRecomendacionGenero() {
             try {
                 const data = await fetchConCredenciales(`${URL_BASE_API}/api/genre-recommendation`);
                 
-                // Actualizamos los elementos del DOM con los IDs que pusimos
                 const imgEl = document.getElementById('genero-imagen');
                 const tituloEl = document.getElementById('genero-titulo');
                 const descEl = document.getElementById('genero-descripcion');
 
                 if (imgEl) imgEl.src = data.imageUrl;
                 if (tituloEl) tituloEl.innerText = data.genre.toUpperCase();
+                // Actualizar la descripción con el género recomendado y el artista sugerido desde el backend
                 if (descEl) descEl.innerText = `Ya que te gusta ${data.basedOn}, ¡te recomendamos explorar el género ${data.genre}! Artistas como ${data.artist} son un buen punto de partida.`;
 
             } catch (error) {
                 console.error('Error al cargar la recomendación de género:', error.message);
-                // No mostramos un error, simplemente dejamos la sección como está.
             }
         }
 
-        // Funcion para eliminar datos del usuario segun requerido en el acuerdo legal de Spotify (Función desactivada temporalmente para pruebas)
+        // Funcion asincrona para eliminar los datos del usuario
+        // No funcional por el momento debido a pruebas
         async function eliminarDatosUsuario() {
             if (!confirm("¿Estás seguro de que quieres eliminar todos tus datos? Esta acción no se puede deshacer.")) {
                 return;
@@ -556,42 +569,9 @@
             console.log("PRUEBA: La llamada a la API de eliminación ha sido omitida.");
             alert("PRUEBA: Simulación de 'Datos eliminados'. No se borró nada. Redirigiendo a la página de inicio.");
             mostrarLogin();
-
-
-            /*
-            // ===== CÓDIGO ORIGINAL DESACTIVADO TEMPORALMENTE =====
-            try {
-                // 2. Llamar al endpoint (asumiendo que es un POST a /api/delete-my-data)
-                const respuesta = await fetch(`${URL_BASE_API}/api/delete-my-data`, { 
-                    method: 'POST',
-                    credentials: 'include' 
-                });
-
-                if (respuesta.status === 401) {
-                    mostrarLogin();
-                    throw new Error('Autorización necesaria');
-                }
-
-                if (!respuesta.ok) {
-                    throw new Error('Error al contactar al servidor');
-                }
-
-                const resultado = await respuesta.json();
-                
-                // 3. Informar y redirigir
-                alert(resultado.message || "Datos eliminados correctamente. Serás redirigido a la página de inicio.");
-                
-                // 4. Mostrar el login
-                mostrarLogin(); 
-
-            } catch (error) {
-                console.error('Error al eliminar datos:', error.message);
-                alert("No se pudieron eliminar los datos. Por favor, inténtalo de nuevo más tarde.");
-            }
-            */
         }
 
-        // Funcion para crear las graficas
+        // Funcion para crear la grafica de generos
         function crearGraficaGeneros(generosData, graphType) {
             const ctx = document.getElementById('grafica-generos');
             if (!ctx) return; 
@@ -613,7 +593,7 @@
                 'rgba(250, 100, 100, 0.7)'
             ];
             const borderColors = backgroundColors.map(color => color.replace('0.7', '1'));
-            // Definicion de opciones generales de las graficas
+            
             let chartOptions = {
                 responsive: true,
                 plugins: {
@@ -631,7 +611,7 @@
                     }
                 }
             };
-            // If anidados para modificar las graficas dependiendo su tipo
+            
             if (graphType === 'bar') {
                 chartOptions.scales = {
                     x: {
@@ -676,7 +656,7 @@
                     }
                 };
             }
-            // Creacion de las graficas
+            
             generosChartInstance = new Chart(ctx, {
                 type: graphType,
                 data: {
@@ -693,9 +673,8 @@
             });
         }
 
-        // Manejo de rutas y eventos
+        // Evento DOMContentLoaded para inicializar la aplicacion
         document.addEventListener('DOMContentLoaded', () => {
-            // --- Lógica del Off-canvas ---
             const openMenuBtn = document.getElementById('open-menu-btn');
             const closeMenuBtn = document.getElementById('close-menu-btn');
             const offcanvasMenu = document.getElementById('offcanvas-menu');
@@ -720,11 +699,31 @@
                 link.addEventListener('click', closeMenu);
             });
 
-            // Listener para el botón de eliminar
+            const scrollTopBtn = document.getElementById('scroll-top-btn');
+            const heroSection = document.getElementById('seccion-inicio-hero');
+
+            if (scrollTopBtn && heroSection) {
+                // Lógica de visibilidad del botón "Volver Arriba"
+                window.addEventListener('scroll', () => {
+                    const isInicioVisible = !document.getElementById('vista-inicio').classList.contains('hidden');
+                    if (window.scrollY > (heroSection.offsetHeight / 2) && isInicioVisible) {
+                        scrollTopBtn.classList.remove('hidden');
+                    } else {
+                        scrollTopBtn.classList.add('hidden');
+                    }
+                });
+
+                scrollTopBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    heroSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                });
+            }
+
             const botonEliminar = document.getElementById('boton-eliminar-confirmar');
             if (botonEliminar) {
                 botonEliminar.addEventListener('click', eliminarDatosUsuario);
             }
+            // Manejo de rutas y navegación
             const navLinks = document.querySelectorAll('.nav-link');
             const scrollLinks = document.querySelectorAll('.scroll-link');
             const contentSections = document.querySelectorAll('[data-content-route]');
@@ -737,6 +736,7 @@
                     cargarTopCanciones(nuevoTimeRange);
                 });
             }
+            // Manejo del selector de tipo de grafica
             const typeGraphSelector = document.getElementById('type-graph')
             if (typeGraphSelector){
                 typeGraphSelector.addEventListener('change', (event) => {
@@ -747,98 +747,122 @@
                 });
             }
 
-        function handleRouteChange(route) {
-            contentSections.forEach(section => {
-                section.classList.add('hidden');
-            });
-            const activeSection = document.querySelector(`[data-content-route="${route}"]`);
-            if (activeSection) {
-                activeSection.classList.remove('hidden');
-                if(route === 'reciente'){
-                    cargarCancionesRecientes();
-                } else if (route === 'estadisticas'){
-                    const contenedorPerfil = document.getElementById('contenedor-perfil-usuario');
-                    if (contenedorPerfil) {
-                        contenedorPerfil.innerHTML = ''; 
-                    }
-                    cargarPerfilUsuario();
-                    cargarMinutos(); 
-                    cargarGeneros(); 
-                } else if (route === 'resumen') {
-                    const selector = document.getElementById('time-range-select');
-                    const timeRange = selector ? selector.value : 'medium_term';
-                    
-                    cargarTopArtistas(timeRange);
-                    cargarTopCanciones(timeRange);
-                    cargarMinutos(); 
-                }
-
-            } else {
-                document.querySelector(`[data-content-route="${defaultRoute}"]`).classList.remove('hidden');
-                }
-            }
-
-        navLinks.forEach(link => {
-            link.addEventListener('click', (event) => {
-                event.preventDefault();
-                const route = link.getAttribute('data-route');
-                history.pushState({ route }, '', link.getAttribute('href'));
-                handleRouteChange(route);
+            // Funcion para manejar el cambio de ruta
+            function handleRouteChange(route) {
+                contentSections.forEach(section => {
+                    section.classList.add('hidden');
                 });
-        });
 
-        // Manejo de enlaces para desplazarse
-        scrollLinks.forEach(link => {
-            link.addEventListener('click', (event) => {
-                event.preventDefault();
-                const mainView = document.getElementById('vista-inicio');
-                const targetId = link.getAttribute('href');
-                if (mainView.classList.contains('hidden')) {
-                    handleRouteChange('inicio');
-                    history.pushState({ route: 'inicio' }, '', '/');
-                }
-                setTimeout(() => {
-                    const targetElement = document.querySelector(targetId);
-                    if (targetElement) {
-                        targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    } 
-                }, 100);
-            });
-        });
-
-        // Manejo de eventos por medio de un operador ternario y llamado a la funcion de manejo de rutas
-        window.addEventListener('popstate', (event) => {
-            const route = (event.state && event.state.route) ? event.state.route : defaultRoute;
-            handleRouteChange(route);
-        });
-
-        // Funcion asincrona de inicializacion
-        async function initialize() {
-            try {
-                const timeRangeSelector = document.getElementById('time-range-select');
-                const initialRange = (timeRangeSelector && timeRangeSelector.value) ? timeRangeSelector.value : 'long_term';
-
-                await Promise.all([
-                    cargarTopArtistas(initialRange), 
-                    cargarTopCanciones(initialRange),
-                    cargarCancionesRecientes(),
-                    cargarRecomendacionGenero() // <-- ¡LÍNEA AÑADIDA!
-                ]);
-
-                mostrarPanel();
-                const initialPath = window.location.pathname;
-                let initialRoute = 'inicio';
+                const scrollTopBtn = document.getElementById('scroll-top-btn');
+                const activeSection = document.querySelector(`[data-content-route="${route}"]`);
                 
-                handleRouteChange(initialRoute);
-            } catch (error) {
-                if (error.message === 'Autorización necesaria') {
-                    console.log("Authorization required, showing the login page.");
-                    mostrarLogin();
+                if (activeSection) {
+                    activeSection.classList.remove('hidden');
+                    const homeSections = document.querySelectorAll('#vista-inicio > section');
+                    if (route === 'inicio') {
+                        // Habilitar scroll-snap
+                        document.documentElement.classList.add('scroll-snap-container');
+                        homeSections.forEach(el => el.classList.add('scroll-snap-child'));
+                        
+                        // Comprobación de scroll
+                        if (scrollTopBtn && heroSection && window.scrollY > (heroSection.offsetHeight / 2)) {
+                            scrollTopBtn.classList.remove('hidden');
+                        }
+                    } else {
+                        // Deshabilitar scroll-snap
+                        document.documentElement.classList.remove('scroll-snap-container');
+                        homeSections.forEach(el => el.classList.remove('scroll-snap-child'));
+                        
+                        // Ocultar botón de scroll en otras vistas
+                        if (scrollTopBtn) {
+                            scrollTopBtn.classList.add('hidden');
+                        }
+                    }
+
+                    // Cargar datos específicos según la ruta
+                    if(route === 'reciente'){
+                        cargarCancionesRecientes();
+                    } else if (route === 'estadisticas'){
+                        const contenedorPerfil = document.getElementById('contenedor-perfil-usuario');
+                        if (contenedorPerfil) {
+                            contenedorPerfil.innerHTML = ''; 
+                        }
+                        cargarPerfilUsuario();
+                        cargarMinutos(); 
+                        cargarGeneros(); 
+                    } else if (route === 'resumen') {
+                        const selector = document.getElementById('time-range-select');
+                        const timeRange = selector ? selector.value : 'medium_term';
+                        
+                        cargarTopArtistas(timeRange);
+                        cargarTopCanciones(timeRange);
+                        cargarMinutos(); 
+                    }
+
                 } else {
-                    console.error("An error occurred during initialization:", error);
+                    document.querySelector(`[data-content-route="${defaultRoute}"]`).classList.remove('hidden');
                 }
             }
-        }
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    const route = link.getAttribute('data-route');
+                    history.pushState({ route }, '', link.getAttribute('href'));
+                    handleRouteChange(route);
+                });
+            });
+
+            scrollLinks.forEach(link => {
+                link.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    const mainView = document.getElementById('vista-inicio');
+                    const targetId = link.getAttribute('href');
+                    if (mainView.classList.contains('hidden')) {
+                        handleRouteChange('inicio');
+                        history.pushState({ route: 'inicio' }, '', '/');
+                    }
+                    setTimeout(() => {
+                        const targetElement = document.querySelector(targetId);
+                        if (targetElement) {
+                            targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        } 
+                    }, 100);
+                });
+            });
+
+            window.addEventListener('popstate', (event) => {
+                const route = (event.state && event.state.route) ? event.state.route : defaultRoute;
+                handleRouteChange(route);
+            });
+
+            // Inicializacion de la aplicacion
+            async function initialize() {
+                try {
+                    const timeRangeSelector = document.getElementById('time-range-select');
+                    const initialRange = (timeRangeSelector && timeRangeSelector.value) ? timeRangeSelector.value : 'long_term';
+
+                    await Promise.all([
+                        cargarTopArtistas(initialRange), 
+                        cargarTopCanciones(initialRange),
+                        cargarCancionesRecientes(),
+                        cargarRecomendacionGenero()
+                    ]);
+
+                    mostrarPanel();
+                    const initialPath = window.location.pathname;
+                    let initialRoute = 'inicio';
+                    
+                    handleRouteChange(initialRoute);
+                } catch (error) {
+                    if (error.message === 'Autorización necesaria') {
+                        console.log("Authorization required, showing the login page.");
+                        mostrarLogin();
+                    } else {
+                        console.error("An error occurred during initialization:", error);
+                    }
+                }
+            }
             initialize();
         });
     </script>
