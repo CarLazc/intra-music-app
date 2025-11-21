@@ -64,14 +64,27 @@
 </head>
 
 <body class="overflow-x-hidden">
-    <div id="contenedor-login" class="min-h-screen flex flex-col items-center justify-center text-center p-4 hidden">
+    <div id="contenedor-login" class="min-h-screen flex flex-col items-center justify-center text-center p-4">
         <h1 class="font-heading text-6xl md:text-8xl font-black tracking-tighter">INTRA MUSIC</h1>
-        <p class="text-xl mt-4 mb-8 text-gray-300">Mira tus estadísticas personales de Spotify.</p>
-        <a href="http://127.0.0.1:5000" class="bg-green-500 text-white font-bold py-4 px-10 rounded-full shadow-lg hover:bg-green-600 transition-all transform hover:scale-105 text-lg">
-            Iniciar sesión con Spotify
-        </a>
-    </div>
+        <p class="text-xl mt-4 mb-8 text-gray-300">Descubre más sobre tu música.</p>
+        
+        <div class="flex flex-col space-y-4 w-full max-w-sm">
+            <a href="http://127.0.0.1:5000" class="flex items-center justify-center bg-green-500 text-white font-bold py-4 px-8 rounded-full shadow-lg hover:bg-green-600 transition-all transform hover:scale-105 text-lg">
+                <svg width="45" height="45">
+                    <use xlink:href="assets/svg/sprites.svg#spotify"></use>
+                </svg>
+                <span>Iniciar sesión con Spotify</span>
+            </a>
 
+            <button onclick="alert('Esta zona sigue en desarrollo.')" class="flex items-center justify-center bg-red-600 text-white font-bold py-4 px-8 rounded-full shadow-lg hover:bg-red-700 transition-all transform hover:scale-105 text-lg">
+                <svg width="45" height="45">
+                    <use xlink:href="assets/svg/sprites.svg#youtube"></use>
+                </svg>
+                <span>Ingresar con YouTube Music</span>
+            </button>
+
+        </div>
+    </div>
     <div id="contenido-principal" class="hidden">
         <header class="absolute top-0 left-0 right-0 z-30 p-4">
             <nav class="flex justify-between items-center text-sm font-semibold tracking-wider">
@@ -126,36 +139,6 @@
                         </div>
                     </div>
                 </section>
-
-                <!--<section id="seccion-imagenes" class="min-h-screen flex items-center justify-center bg-sky-200">
-                    <div class="relative grid h-[500px] lg:h-[600px] xl:h-[700px] max-w-7xl w-full grid-cols-12 grid-rows-8 mx-auto overflow-hidden">
-                        <span class="z-30 col-start-1 col-span-5 row-start-1 row-span-2 font-heavy text-7xl md:text-9xl xl:text-[10rem] text-indigo-600 leading-none flex items-center">Dance</span>
-                        <span class="z-30 col-start-8 col-span-5 row-start-1 row-span-2 font-heavy text-7xl md:text-9xl xl:text-[10rem] text-indigo-600 leading-none flex items-center">Hip hop</span>
-                        <span class="z-30 col-start-7 col-span-8 row-start-3 row-span-2 font-heavy text-7xl md:text-9xl xl:text-[10rem] text-indigo-600 leading-none flex items-center">Instrumental</span>
-                        <span class="z-30 col-start-1 col-span-5 row-start-5 row-span-2 font-heavy text-7xl md:text-9xl xl:text-[10rem] text-indigo-600 leading-none flex items-center">Metal</span>
-                        <span class="z-30 col-start-7 col-span-5 row-start-5 row-span-2 font-heavy text-7xl md:text-9xl xl:text-[10rem] text-indigo-600 leading-none flex items-center">Salsa</span>
-                        <span class="z-30 col-start-1 col-span-5 row-start-7 row-span-2 font-heavy text-7xl md:text-9xl xl:text-[10rem] text-indigo-600 leading-none flex items-center">Cumbia</span>
-                        <span class="z-30 col-start-9 col-span-5 row-start-7 row-span-2 font-heavy text-7xl md:text-9xl xl:text-[10rem] text-indigo-600 leading-none flex items-center">K-Pop</span>
-                        <div class="z-20 col-start-5 col-span-2 row-start-1 row-span-2 flex justify-center items-center">
-                            <div class="w-5/6 h-5/6 genre-image-placeholder"></div>
-                        </div>
-                        <div class="z-20 col-start-1 col-span-2 row-start-3 row-span-2 flex justify-center items-center">
-                            <div class="w-full h-4/5 genre-image-placeholder"></div>
-                        </div>
-                        <div class="z-20 col-start-4 col-span-2 row-start-3 row-span-2 flex justify-center items-center">
-                            <div class="w-full h-5/6 genre-image-placeholder"></div>
-                        </div>
-                        <div class="z-20 col-start-5 col-span-2 row-start-5 row-span-2 flex justify-center items-center">
-                            <div class="w-5/6 h-4/5 genre-image-placeholder"></div>
-                        </div>
-                        <div class="z-20 col-start-11 col-span-2 row-start-5 row-span-2 flex justify-center items-center">
-                            <div class="w-full h-5/6 genre-image-placeholder"></div>
-                        </div>
-                        <div class="z-20 col-start-6 col-span-2 row-start-7 row-span-2 flex justify-center items-center">
-                            <div class="w-full h-4/5 genre-image-placeholder"></div>
-                        </div>
-                    </div>
-                </section>-->
 
                 <section class="py-16 py-24 relative min-h-screen flex items-center" style="background: linear-gradient(20deg, oklch(51.1% 0.262 276.966), oklch(90.1% 0.058 230.902));">
                     <div class="px-6 mx-auto max-w-5xl lg:max-w-6xl xl:max-w-7xl flex items-center gap-12">
@@ -289,10 +272,10 @@
                 <a href="#resumen-personal" class="nav-link hover:text-indigo-300 transition-colors" data-route="resumen">Resumen Personal</a>
                 <a href="#escucha-reciente" class="nav-link hover:text-indigo-300 transition-colors" data-route="reciente">Escuchado Recientemente</a>
                 <a href="#estaditicas-adicionales" class="nav-link hover:text-indigo-300 transition-colors" data-route="estadisticas">Más estadísticas</a>
+                <a href="#logout" class="nav-link hover:text-amber-400 transition-colors" data-route="logout">Cerrar Sesión</a>
                 <a href="#eliminar-datos" class="nav-link hover:text-red-400 transition-colors" data-route="eliminar">Eliminar mis datos</a>
                 <div class="border-b border-white/20 py-3"></div>
                 <a href="#terminos-de-uso" class="nav-link hover:text-zinc-400 transition-colors" data-route="terminos">Términos de uso</a>
-
             </nav>
         </div>
     </div>
@@ -571,6 +554,27 @@
             mostrarLogin();
         }
 
+        async function logout() {
+            try {
+                const respuesta = await fetch(`${URL_BASE_API}/api/logout`, {
+                    method: 'POST',
+                    credentials: 'include'
+                });
+                
+                if (respuesta.ok) {
+                    console.log('Sesión cerrada exitosamente.');
+                    mostrarLogin();
+                    history.replaceState(null, '', window.location.pathname);
+                } else {
+                    console.error('Error al cerrar sesión en el backend.');
+                    alert('No se pudo cerrar la sesión. Intenta de nuevo.');
+                }
+            } catch (error) {
+                console.error('Error de red al intentar cerrar sesión:', error);
+            }
+        }
+
+
         // Funcion para crear la grafica de generos
         function crearGraficaGeneros(generosData, graphType) {
             const ctx = document.getElementById('grafica-generos');
@@ -723,6 +727,7 @@
             if (botonEliminar) {
                 botonEliminar.addEventListener('click', eliminarDatosUsuario);
             }
+
             // Manejo de rutas y navegación
             const navLinks = document.querySelectorAll('.nav-link');
             const scrollLinks = document.querySelectorAll('.scroll-link');
@@ -808,8 +813,13 @@
                 link.addEventListener('click', (event) => {
                     event.preventDefault();
                     const route = link.getAttribute('data-route');
-                    history.pushState({ route }, '', link.getAttribute('href'));
-                    handleRouteChange(route);
+                    if (route === 'logout') {
+                        logout();
+                    }   
+                    else {
+                        history.pushState({ route }, '', link.getAttribute('href'));
+                        handleRouteChange(route);
+                    }
                 });
             });
 
@@ -863,7 +873,21 @@
                     }
                 }
             }
-            initialize();
+            
+            const urlParams = new URLSearchParams(window.location.search);
+            const authError = urlParams.get('error');
+
+            if (urlParams.has('auth')) {
+                history.replaceState(null, '', window.location.pathname);
+                initialize();
+            } else if (authError === 'auth_failed') {
+                history.replaceState(null, '', window.location.pathname);
+                mostrarLogin();
+                alert('Hubo un error en la autenticación. Por favor, inténtalo de nuevo.');
+            } else {
+                mostrarLogin();
+            }
+            
         });
     </script>
 </body>
